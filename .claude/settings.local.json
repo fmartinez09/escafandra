@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/rferm/proyectosf/escafandra/src -type f -not -path */node_modules/*)"
+    ]
+  }
+}
