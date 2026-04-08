@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /c/Users/rferm/proyectosf/escafandra/src -type f -not -path */node_modules/*)"
+      "Bash(find /c/Users/rferm/proyectosf/escafandra/src -type f -not -path */node_modules/*)",
+      "Bash(grep -E \"\\\\.\\(ts|js|json\\)$\")",
+      "WebFetch(domain:pebblebed.com)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const p = require\\('path'\\); console.log\\(p.resolve\\('../../..'\\)\\)\")"
     ]
   }
 }

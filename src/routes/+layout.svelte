@@ -1,7 +1,9 @@
 <script>
   import '../app.css';
   import { page } from '$app/stores';
+  import { onMount } from 'svelte';
 
+  // ── Typing animation ──────────────────────────────────
   const subtitles = [
     "The quantum fluctuations are particularly poetic today.",
     "Where we let researchers loose on ideas too weird for a roadmap.",
@@ -13,7 +15,6 @@
   let displayed = '';
   let subtitleIndex = 0;
   let charIndex = 0;
-  let deleting = false;
   let cursorVisible = true;
 
   function sleep(ms) {
@@ -23,32 +24,40 @@
   async function typeLoop() {
     while (true) {
       const target = subtitles[subtitleIndex];
-
-      // Type
       while (charIndex < target.length) {
         charIndex++;
         displayed = target.slice(0, charIndex);
         await sleep(38 + Math.random() * 25);
       }
-
-      // Hold
       await sleep(2800);
-
-      // Delete
       while (charIndex > 0) {
         charIndex--;
         displayed = target.slice(0, charIndex);
         await sleep(18 + Math.random() * 12);
       }
-
       await sleep(400);
       subtitleIndex = (subtitleIndex + 1) % subtitles.length;
     }
   }
 
-  // Cursor blink
-  import { onMount } from 'svelte';
+  // ── Theme toggle ──────────────────────────────────────
+  let isDark = true;
+
+  function toggleTheme() {
+    isDark = !isDark;
+    const theme = isDark ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+
   onMount(() => {
+    // Restore saved theme
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      isDark = false;
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
     typeLoop();
     const interval = setInterval(() => {
       cursorVisible = !cursorVisible;
@@ -63,22 +72,37 @@
 <nav>
   <div class="nav-inner">
     <div class="nav-brand">
-      <a href="/" class="nav-logo">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="6" height="6" fill="currentColor"/>
-          <rect x="8" width="6" height="6" fill="currentColor"/>
-          <rect y="8" width="6" height="6" fill="currentColor"/>
-          <rect x="8" y="8" width="6" height="6" fill="currentColor" opacity="0.4"/>
-        </svg>
-        <span>escafandra</span>
-      </a>
+      <a href="/" class="nav-logo">escafandra</a>
       <div class="nav-subtitle">
-        <span class="subtitle-text">{displayed}</span><span class="cursor" class:visible={cursorVisible}>|</span>
+        <span>{displayed}</span><span class="cursor" class:visible={cursorVisible}>_</span>
       </div>
     </div>
-    <div class="nav-links">
-      <a href="/" class:active={isHome}>Home</a>
-      <a href="/blog" class:active={isBlog}>Writing</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="/" class:active={isHome}>Home</a>
+        <a href="/blog" class:active={isBlog}>Lab</a>
+      </div>
+      <button class="theme-toggle" on:click={toggleTheme} aria-label="Toggle theme">
+        {#if isDark}
+          <!-- Sun icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        {:else}
+          <!-- Moon icon -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        {/if}
+      </button>
     </div>
   </div>
 </nav>
@@ -90,8 +114,7 @@
 <footer>
   <div class="footer-inner">
     <span>© 2026 Escafandra · Temuco, Chile</span>
-    <a href="https://en.wikipedia.org/wiki/AI_slop" style="text-decoration: none; color: inherit;">
-    <span class="footer-mid">🦀 Made with Claude. Long live slop.</span></a>
+    <a href="https://en.wikipedia.org/wiki/AI_slop" class="footer-slop">Made with Claude. Long live slop.</a>
     <span>Embrace AI</span>
   </div>
 </footer>
@@ -103,17 +126,18 @@
     z-index: 100;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
   }
 
   .nav-inner {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
     height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
   }
 
   .nav-brand {
@@ -124,60 +148,84 @@
   }
 
   .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.01em;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
     color: var(--text);
+    letter-spacing: -0.01em;
     line-height: 1.2;
-  }
-
-  .nav-logo svg {
-    flex-shrink: 0;
-    color: var(--text);
+    transition: color 0.15s;
   }
 
   .nav-logo:hover {
-    color: var(--text);
+    color: var(--accent);
   }
 
   .nav-subtitle {
-    font-size: 0.75rem;
-    color: var(--text-subtle);
-    font-family: var(--font-body);
-    padding-left: 22px;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
     white-space: nowrap;
     overflow: hidden;
-    height: 16px;
-    line-height: 16px;
+    height: 15px;
+    line-height: 15px;
+    margin-top: 1px;
   }
 
   .cursor {
     opacity: 0;
     transition: opacity 0.1s;
+    color: var(--accent);
   }
 
   .cursor.visible {
     opacity: 1;
   }
 
-  .nav-links {
+  .nav-right {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    gap: 20px;
     flex-shrink: 0;
   }
 
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+
   .nav-links a {
-    font-size: 0.875rem;
-    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    color: var(--text-subtle);
     transition: color 0.15s;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-weight: 500;
   }
 
   .nav-links a:hover,
   .nav-links a.active {
-    color: var(--text);
+    color: var(--accent);
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-subtle);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 0;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
   }
 
   main {
@@ -191,37 +239,35 @@
     z-index: 100;
     background: var(--bg);
     border-top: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
   }
 
   .footer-inner {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
     height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-  }
-
-  .footer-mid {
+    gap: 16px;
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
     color: var(--text-subtle);
   }
 
-  .footer-link {
-    font-size: 0.8125rem;
+  .footer-slop {
     color: var(--text-subtle);
+    text-decoration: none;
     transition: color 0.15s;
   }
 
-  .footer-link:hover {
-    color: var(--text);
+  .footer-slop:hover {
+    color: var(--accent);
   }
 
   @media (max-width: 600px) {
     .nav-subtitle { display: none; }
-    .nav-links { gap: 16px; }
+    .nav-links { gap: 14px; }
   }
 </style>

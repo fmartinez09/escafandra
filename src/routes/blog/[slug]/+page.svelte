@@ -37,9 +37,9 @@
 
 <style>
   .post-wrap {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
   }
 
   .post-container {
@@ -48,11 +48,12 @@
 
   .back-link {
     display: inline-block;
-    margin: 32px 0 40px;
-    font-size: 0.8125rem;
+    margin: 24px 0 28px;
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
     color: var(--text-subtle);
-    font-family: var(--font-body);
     transition: color 0.15s;
+    letter-spacing: 0.02em;
   }
 
   .back-link:hover {
@@ -60,49 +61,47 @@
   }
 
   .post-header {
-    margin-bottom: 48px;
-    padding-bottom: 32px;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
     border-bottom: 1px solid var(--border);
   }
 
   .post-tag {
     display: inline-block;
-    font-size: 0.75rem;
-    font-family: var(--font-body);
-    color: var(--text-subtle);
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
+    font-size: 0.5625rem;
+    font-family: var(--font-mono);
+    color: var(--green);
+    background: var(--green-muted);
+    padding: 1px 5px;
     border-radius: 3px;
-    margin-bottom: 16px;
-    text-transform: lowercase;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.25rem, 5vw, 3rem);
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.125rem);
+    font-weight: 600;
     letter-spacing: -0.02em;
-    line-height: 1.15;
+    line-height: 1.2;
     color: var(--text);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .post-lead {
-    font-size: 1.1875rem;
-    color: var(--text);
-    line-height: 1.55;
-    margin-bottom: 20px;
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .post-byline {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     align-items: center;
-    font-size: 0.8125rem;
-    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
     color: var(--text-subtle);
   }
 
@@ -112,41 +111,43 @@
 
   /* Prose styles */
   :global(.prose) {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     line-height: 1.75;
     color: var(--text);
-    padding-bottom: 80px;
+    padding-bottom: 64px;
   }
 
   :global(.prose h1),
   :global(.prose h2),
   :global(.prose h3),
   :global(.prose h4) {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    margin: 2.2em 0 0.8em;
-    line-height: 1.25;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 2em 0 0.6em;
+    line-height: 1.3;
     color: var(--text);
   }
 
-  :global(.prose h2) { font-size: 1.4rem; }
-  :global(.prose h3) { font-size: 1.15rem; }
-  :global(.prose h4) { font-size: 1rem; font-style: italic; }
+  :global(.prose h2) { font-size: 1.2rem; }
+  :global(.prose h3) { font-size: 1.05rem; }
+  :global(.prose h4) { font-size: 0.925rem; color: var(--text-muted); }
 
   :global(.prose p) {
-    margin: 1em 0;
+    margin: 0.9em 0;
     color: var(--text);
   }
 
   :global(.prose a) {
     color: var(--accent);
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(176, 112, 56, 0.25);
   }
 
   :global(.prose a:hover) {
     color: var(--accent-hover);
+    text-decoration-color: var(--accent-hover);
   }
 
   :global(.prose strong) {
@@ -159,11 +160,11 @@
 
   :global(.prose ul),
   :global(.prose ol) {
-    padding-left: 1.5em;
-    margin: 1em 0;
+    padding-left: 1.4em;
+    margin: 0.8em 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
   :global(.prose li) {
@@ -173,71 +174,69 @@
 
   :global(.prose blockquote) {
     border-left: 2px solid var(--accent);
-    padding: 4px 0 4px 20px;
-    margin: 1.5em 0;
+    padding: 2px 0 2px 16px;
+    margin: 1.2em 0;
     color: var(--text-muted);
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.05rem;
+    font-size: 0.875rem;
   }
 
   :global(.prose hr) {
     border: none;
     border-top: 1px solid var(--border);
-    margin: 2.5em 0;
+    margin: 2em 0;
   }
 
-  /* Inline code */
   :global(.prose code:not(pre code)) {
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    background: var(--bg-card);
+    font-size: 0.75rem;
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
     padding: 1px 5px;
     border-radius: 3px;
-    color: var(--text);
+    color: var(--accent);
   }
 
-  /* Code blocks */
   :global(.prose pre) {
     background: var(--code-bg);
     border-radius: 6px;
-    padding: 20px 24px;
+    padding: 16px 20px;
     overflow-x: auto;
-    margin: 1.5em 0;
-    border: 1px solid #333;
+    margin: 1.2em 0;
+    border: 1px solid var(--border);
   }
 
   :global(.prose pre code) {
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: var(--code-text);
     background: none;
     border: none;
     padding: 0;
-    line-height: 1.7;
+    line-height: 1.65;
   }
 
-  /* Tables */
   :global(.prose table) {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.875rem;
-    margin: 1.5em 0;
+    font-size: 0.8125rem;
+    margin: 1.2em 0;
     font-family: var(--font-body);
   }
 
   :global(.prose th) {
     text-align: left;
-    padding: 8px 16px 8px 0;
+    padding: 8px 12px 8px 0;
     border-bottom: 2px solid var(--border);
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
+    font-family: var(--font-mono);
     color: var(--text-muted);
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   :global(.prose td) {
-    padding: 8px 16px 8px 0;
+    padding: 8px 12px 8px 0;
     border-bottom: 1px solid var(--border);
     color: var(--text);
     vertical-align: top;
@@ -247,11 +246,10 @@
     border-bottom: none;
   }
 
-  /* Images */
   :global(.prose img) {
     max-width: 100%;
     border-radius: 6px;
-    margin: 1.5em 0;
+    margin: 1.2em 0;
     border: 1px solid var(--border);
   }
 </style>

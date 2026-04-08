@@ -3,11 +3,12 @@
 </script>
 
 <svelte:head>
-  <title>Writing — Escafandra</title>
+  <title>Lab — Escafandra</title>
 </svelte:head>
 
 <div class="blog-index">
   <header class="blog-header">
+    <span class="blog-label">Lab</span>
     <h1>Writing</h1>
     <p class="blog-desc">Research, analysis, and notes from the lab.</p>
   </header>
@@ -32,29 +33,38 @@
 
 <style>
   .blog-index {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 20px;
   }
 
   .blog-header {
-    padding: 56px 0 40px;
+    padding: 40px 0 28px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 0;
+  }
+
+  .blog-label {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 8px;
   }
 
   h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.25rem, 5vw, 3rem);
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .blog-desc {
     color: var(--text-muted);
-    font-size: 0.9375rem;
+    font-size: 0.8125rem;
   }
 
   .posts-list {
@@ -64,9 +74,8 @@
 
   .post-item {
     display: block;
-    padding: 28px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--border);
-    transition: none;
   }
 
   .post-item:hover h2 {
@@ -76,47 +85,48 @@
   .post-meta {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
+    gap: 10px;
+    margin-bottom: 6px;
   }
 
   .post-tag {
-    font-size: 0.75rem;
-    font-family: var(--font-body);
-    color: var(--text-subtle);
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
+    font-size: 0.5625rem;
+    font-family: var(--font-mono);
+    color: var(--green);
+    background: var(--green-muted);
+    padding: 1px 5px;
     border-radius: 3px;
-    text-transform: lowercase;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   .post-date {
-    font-size: 0.8125rem;
+    font-size: 0.6875rem;
     color: var(--text-subtle);
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
   }
 
   h2 {
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     transition: color 0.15s;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
   .post-summary {
-    font-size: 0.9rem;
-    color: var(--text);
-    line-height: 1.55;
-    max-width: 560px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 480px;
   }
 
   .empty {
-    padding: 40px 0;
+    padding: 32px 0;
     color: var(--text-muted);
+    font-size: 0.8125rem;
   }
 </style>

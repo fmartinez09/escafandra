@@ -1,21 +1,46 @@
+/* ── Dark theme (default) ─────────────────────────────── */
 :root {
-  --bg: #f4f1ec;
-  --bg-card: #eeeae3;
-  --text: #1a1814;
-  --text-muted: #6b6560;
-  --text-subtle: #9b948d;
-  --border: #ddd8d0;
-  --accent: #6b5b8b;
-  --accent-hover: #554873;
-  --code-bg: #1e1c1a;
-  --code-text: #e8e4dc;
+  --bg: #161412;
+  --bg-surface: #1c1a17;
+  --bg-elevated: #242220;
+  --text: #c8c0b4;
+  --text-muted: #8a8278;
+  --text-subtle: #6a6358;
+  --border: #2a2622;
+  --accent: #b07038;
+  --accent-hover: #c48048;
+  --accent-muted: rgba(176, 112, 56, 0.10);
+  --green: #5e8e72;
+  --green-muted: rgba(94, 142, 114, 0.10);
+  --code-bg: #111010;
+  --code-text: #b8b2a8;
+}
 
-  --font-body: 'Instrument Sans', sans-serif;
-  --font-serif: 'Cormorant Garamond', serif;
+/* ── Light theme ──────────────────────────────────────── */
+html[data-theme="light"] {
+  --bg: #f4f0ea;
+  --bg-surface: #ede8df;
+  --bg-elevated: #e4ddd4;
+  --text: #1e1c18;
+  --text-muted: #6a6358;
+  --text-subtle: #9a9088;
+  --border: #d4cdc4;
+  --accent: #8a4e20;
+  --accent-hover: #a05e2e;
+  --accent-muted: rgba(138, 78, 32, 0.09);
+  --green: #3a6a50;
+  --green-muted: rgba(58, 106, 80, 0.09);
+  --code-bg: #1c1a16;
+  --code-text: #c0b8ac;
+}
+
+/* ── Fonts & layout constants ─────────────────────────── */
+:root {
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-
-  --max-w: 680px;
-  --nav-h: 52px;
+  --max-w: 640px;
+  --nav-h: 48px;
 }
 
 *, *::before, *::after {
@@ -33,11 +58,12 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background 0.2s, color 0.2s;
 }
 
 a {
@@ -49,48 +75,48 @@ a:hover {
   color: var(--accent);
 }
 
-/* Syntax highlighting — warm dark theme (PrismJS) */
+/* ── Syntax highlighting ──────────────────────────────── */
 .token.keyword,
 .token.operator,
-.token.selector      { color: #b8a8d4; } /* dusty violet — keywords */
+.token.selector      { color: #b07038; }
 
 .token.string,
 .token.char,
 .token.url,
-.token.regex         { color: #d4a574; } /* warm amber — strings */
+.token.regex         { color: #7a9e82; }
 
 .token.number,
-.token.boolean       { color: #8db48e; } /* sage green — numbers, booleans */
+.token.boolean       { color: #b89870; }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
-.token.cdata         { color: #5e5852; font-style: italic; } /* muted brown — comments */
+.token.cdata         { color: #6a6358; font-style: italic; }
 
 .token.function,
-.token.class-name    { color: #c4b9e0; } /* light violet — function/class names */
+.token.class-name    { color: #c8b890; }
 
 .token.builtin,
 .token.constant,
-.token.symbol        { color: #9fc8d8; } /* muted teal — built-ins */
+.token.symbol        { color: #6aabb6; }
 
-.token.tag           { color: #b8a8d4; }
-.token.attr-name     { color: #9fc8d8; }
-.token.attr-value    { color: #d4a574; }
+.token.tag           { color: #b07038; }
+.token.attr-name     { color: #6aabb6; }
+.token.attr-value    { color: #7a9e82; }
 
 .token.property,
-.token.variable      { color: #e8e4dc; }
+.token.variable      { color: #b8b2a8; }
 
-.token.punctuation   { color: #7a7068; }
+.token.punctuation   { color: #6a6358; }
 
 .token.important,
 .token.bold          { font-weight: 600; }
 .token.italic        { font-style: italic; }
 
-.token.deleted       { color: #d48a8a; background: rgba(212, 138, 138, 0.1); }
-.token.inserted      { color: #8db48e; background: rgba(141, 180, 142, 0.1); }
+.token.deleted       { color: #b87070; background: rgba(184, 112, 112, 0.06); }
+.token.inserted      { color: #7a9e82; background: rgba(122, 158, 130, 0.06); }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
