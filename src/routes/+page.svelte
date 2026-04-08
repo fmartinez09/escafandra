@@ -25,15 +25,15 @@
 
 <div class="home">
   <section class="hero">
-    <h1>A home for builders.</h1>
+    <h1>Escafandra</h1>
     <div class="thesis">
       {#each thesis as line}
         <p>{line}</p>
       {/each}
     </div>
     <div class="companies">
-      {#each companies as co}
-        <a href={co.url} class="company-tag">{co.name}</a>
+      {#each companies as co, i}
+        <a href={co.url} class="company-tag"><span class="co-num">{String(i + 1).padStart(2, '0')}</span>{co.name}</a>
       {/each}
       <a href="#" class="company-tag all">All companies</a>
     </div>
@@ -46,7 +46,7 @@
     </div>
     <div class="about-body">
       <p>
-        Escafandra is a research-led venture firm backing the infrastructure layer. We invest early — often pre-product — in teams building the primitives that other companies will depend on for decades.
+        Escafandra is a research and development group. We aim to create large-scale distributed systems, compilers, and design programming languages ​​and kernels.
       </p>
       <p>
         We're operators first. Our team has built distributed systems at scale, shipped compilers, designed programming languages, and written kernels. We don't just fund builders — we are them.
@@ -90,10 +90,10 @@
 
   h1 {
     font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
     font-weight: 400;
     letter-spacing: -0.02em;
-    line-height: 1.15;
+    line-height: 1.1;
     margin-bottom: 28px;
     color: var(--text);
   }
@@ -133,6 +133,14 @@
     background: var(--bg-card);
   }
 
+  .co-num {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    color: var(--text-subtle);
+    margin-right: 6px;
+    letter-spacing: 0;
+  }
+
   .company-tag.all {
     background: var(--bg-card);
     border-color: transparent;
@@ -157,7 +165,7 @@
 
   h2 {
     font-family: var(--font-serif);
-    font-size: 1.375rem;
+    font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: -0.01em;
     color: var(--text);
@@ -190,7 +198,8 @@
     color: var(--text-muted);
     font-style: italic;
     font-family: var(--font-serif);
-    font-size: 1.0625rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
   }
 
   .posts-preview {
@@ -223,6 +232,6 @@
     font-size: 0.8125rem;
     color: var(--text-subtle);
     flex-shrink: 0;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 </style>

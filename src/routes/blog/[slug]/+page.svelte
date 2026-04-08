@@ -51,7 +51,7 @@
     margin: 32px 0 40px;
     font-size: 0.8125rem;
     color: var(--text-subtle);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     transition: color 0.15s;
   }
 
@@ -68,7 +68,7 @@
   .post-tag {
     display: inline-block;
     font-size: 0.75rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     color: var(--text-subtle);
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -80,18 +80,18 @@
 
   h1 {
     font-family: var(--font-serif);
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-size: clamp(2.25rem, 5vw, 3rem);
     font-weight: 400;
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: 1.15;
     color: var(--text);
     margin-bottom: 16px;
   }
 
   .post-lead {
-    font-size: 1.0625rem;
-    color: var(--text-muted);
-    line-height: 1.6;
+    font-size: 1.1875rem;
+    color: var(--text);
+    line-height: 1.55;
     margin-bottom: 20px;
     font-family: var(--font-serif);
     font-style: italic;
@@ -102,7 +102,7 @@
     gap: 16px;
     align-items: center;
     font-size: 0.8125rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     color: var(--text-subtle);
   }
 
@@ -172,7 +172,7 @@
   }
 
   :global(.prose blockquote) {
-    border-left: 3px solid var(--border);
+    border-left: 2px solid var(--accent);
     padding: 4px 0 4px 20px;
     margin: 1.5em 0;
     color: var(--text-muted);
@@ -224,7 +224,7 @@
     border-collapse: collapse;
     font-size: 0.875rem;
     margin: 1.5em 0;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 
   :global(.prose th) {

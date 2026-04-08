@@ -7,9 +7,7 @@
     "Where we let researchers loose on ideas too weird for a roadmap.",
     "Foundational systems that quietly compound.",
     "Built by founders who see elegance in complexity.",
-    "A home for builders.",
     "Formal verification securing billions in value.",
-    "We back the foundational layers of progress.",
   ];
 
   let displayed = '';
@@ -91,9 +89,10 @@
 
 <footer>
   <div class="footer-inner">
-    <span>© 2026 Escafandra · San Francisco, CA</span>
-    <span class="footer-mid">🦀 Made with Claude. Long live slop.</span>
-    <a href="https://escafandra.com" class="footer-link">escafandra</a>
+    <span>© 2026 Escafandra · Temuco, Chile</span>
+    <a href="https://en.wikipedia.org/wiki/AI_slop" style="text-decoration: none; color: inherit;">
+    <span class="footer-mid">🦀 Made with Claude. Long live slop.</span></a>
+    <span>Embrace AI</span>
   </div>
 </footer>
 
@@ -147,12 +146,10 @@
   .nav-subtitle {
     font-size: 0.75rem;
     color: var(--text-subtle);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     padding-left: 22px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 400px;
     height: 16px;
     line-height: 16px;
   }
@@ -189,19 +186,22 @@
   }
 
   footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background: var(--bg);
     border-top: 1px solid var(--border);
-    margin-top: auto;
   }
 
   .footer-inner {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px 24px;
+    padding: 0 24px;
+    height: var(--nav-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 24px;
     font-size: 0.8125rem;
     color: var(--text-muted);
   }
@@ -222,7 +222,6 @@
 
   @media (max-width: 600px) {
     .nav-subtitle { display: none; }
-    .footer-inner { flex-direction: column; align-items: flex-start; }
     .nav-links { gap: 16px; }
   }
 </style>

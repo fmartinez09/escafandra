@@ -45,7 +45,7 @@
 
   h1 {
     font-family: var(--font-serif);
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-size: clamp(2.25rem, 5vw, 3rem);
     font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--text);
@@ -82,7 +82,7 @@
 
   .post-tag {
     font-size: 0.75rem;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     color: var(--text-subtle);
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -94,13 +94,13 @@
   .post-date {
     font-size: 0.8125rem;
     color: var(--text-subtle);
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
   }
 
   h2 {
     font-family: var(--font-serif);
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.01em;
     color: var(--text);
     margin-bottom: 8px;
@@ -110,7 +110,7 @@
 
   .post-summary {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text);
     line-height: 1.55;
     max-width: 560px;
   }
