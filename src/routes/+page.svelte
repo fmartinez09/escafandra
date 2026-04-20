@@ -11,17 +11,17 @@
   }
 
   const companies = [
-    { name: "Distributed Systems", url: "#" },
-    { name: "Concurrency", url: "#" },
-    { name: "Formal Verification", url: "#" },
-    { name: "Model Checking", url: "#" },
-    { name: "PBT", url: "#" },
-    { name: "DST", url: "#" },
+    { name: "Distributed Systems"},
+    { name: "Concurrency"},
+    { name: "Formal Verification"},
+    { name: "Model Checking"},
+    { name: "PBT"},
+    { name: "DST"},
   ];
 
   const thesis = [
     "I'm a software engineer focused on distributed systems.",
-    "I'm interested in building and understanding robust storage and query layers that form the backbone of modern data infrastructure.",
+    "Interested in building and understanding robust storage and query layers that form the backbone of modern data infrastructure.",
   ];
 </script>
 
@@ -32,7 +32,7 @@
 <div class="home">
   <section class="hero">
     <div class="hero-label">Research & Development</div>
-    <h1>Fernandon Martínez</h1>
+    <h1>Fernando Martínez</h1>
     <div class="thesis">
       {#each thesis as line, i}
         <p class:highlight={i === 0}>{line}</p>
@@ -44,7 +44,7 @@
           <span class="co-num">{String(i + 1).padStart(2, "0")}</span>{co.name}
         </a>
       {/each}
-      <a href="#" class="company-tag all">All areas</a>
+      <!-- <a class="company-tag all">All areas</a> -->
     </div>
   </section>
 
@@ -58,7 +58,7 @@
           focus on distributed systems. Now, i'm focusing on formal verification of distributed systems, and coalgebraic and bisimulation modeling.
         </p>
       </div>
-      <a href="/about" class="section-cta">More →</a>
+      <!-- <a href="/about" class="section-cta">More →</a> -->
     </div>
   </section>
 
