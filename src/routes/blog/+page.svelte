@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Lab — Escafandra</title>
+  <title>Lab</title>
 </svelte:head>
 
 <div class="blog-index">

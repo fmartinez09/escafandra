@@ -5,11 +5,9 @@
 
   // ── Typing animation ──────────────────────────────────
   const subtitles = [
-    "The quantum fluctuations are particularly poetic today.",
-    "Where we let researchers loose on ideas too weird for a roadmap.",
-    "Foundational systems that quietly compound.",
-    "Built by founders who see elegance in complexity.",
-    "Formal verification securing billions in value.",
+    "Foundational systems.",
+    "Bisimulation.",
+    "Formal verification.",
   ];
 
   let displayed = '';
@@ -72,7 +70,7 @@
 <nav>
   <div class="nav-inner">
     <div class="nav-brand">
-      <a href="/" class="nav-logo">escafandra</a>
+      <a href="/" class="nav-logo"></a>
       <div class="nav-subtitle">
         <span>{displayed}</span><span class="cursor" class:visible={cursorVisible}>_</span>
       </div>
@@ -113,9 +111,8 @@
 
 <footer>
   <div class="footer-inner">
-    <span>© 2026 Escafandra · Temuco, Chile</span>
-    <a href="https://en.wikipedia.org/wiki/AI_slop" class="footer-slop">Made with Claude. Long live slop.</a>
-    <span>Embrace AI</span>
+    <span>© 2026 Temuco, Chile</span>
+    <span>Made with Claude.</span>
   </div>
 </footer>
 

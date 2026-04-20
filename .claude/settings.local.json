@@ -5,7 +5,9 @@
       "Bash(grep -E \"\\\\.\\(ts|js|json\\)$\")",
       "WebFetch(domain:pebblebed.com)",
       "Bash(npm run:*)",
-      "Bash(node -e \"const p = require\\('path'\\); console.log\\(p.resolve\\('../../..'\\)\\)\")"
+      "Bash(node -e \"const p = require\\('path'\\); console.log\\(p.resolve\\('../../..'\\)\\)\")",
+      "Bash(kill %1)",
+      "Bash(grep -E \"^#{1,4} \" src/posts/lvstore.md)"
     ]
   }
 }

@@ -1,13 +1,59 @@
 <script>
+  import { onMount } from 'svelte';
   export let data;
   const { content: Content, meta } = data;
+
+  let tocItems = [];
+  let activeId = '';
+
+  onMount(() => {
+    const headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3');
+    tocItems = Array.from(headings).map(h => ({
+      id: h.id,
+      text: h.textContent.trim(),
+      level: parseInt(h.tagName[1])
+    }));
+
+    if (headings.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+            break;
+          }
+        }
+      },
+      { rootMargin: '-8% 0% -82% 0%', threshold: 0 }
+    );
+
+    headings.forEach(h => observer.observe(h));
+    return () => observer.disconnect();
+  });
 </script>
 
 <svelte:head>
-  <title>{meta?.title ?? 'Post'} — Escafandra</title>
+  <title>{meta?.title ?? 'Post'} — Fernando Martinez</title>
 </svelte:head>
 
-<div class="post-wrap">
+<div class="post-layout">
+  {#if tocItems.length > 0}
+    <aside class="toc">
+      <p class="toc-label">Contents</p>
+      <nav class="toc-nav">
+        {#each tocItems as item}
+          <a
+            href="#{item.id}"
+            class="toc-link"
+            class:toc-h3={item.level === 3}
+            class:active={activeId === item.id}
+          >{item.text}</a>
+        {/each}
+      </nav>
+    </aside>
+  {/if}
+
   <div class="post-container">
     <a href="/blog" class="back-link">← Back to all posts</a>
 
@@ -36,13 +82,74 @@
 </div>
 
 <style>
-  .post-wrap {
-    max-width: 800px;
+  .post-layout {
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 20px;
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
   }
 
+  /* ── TOC sidebar ───────────────────────────────────────── */
+  .toc {
+    width: 196px;
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--nav-h) + 28px);
+    max-height: calc(100vh - var(--nav-h) - 56px);
+    overflow-y: auto;
+    padding-top: 68px; /* aligns with back-link */
+  }
+
+  .toc-label {
+    font-size: 0.5625rem;
+    font-family: var(--font-mono);
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .toc-link {
+    display: block;
+    font-size: 0.6875rem;
+    font-family: var(--font-body);
+    color: var(--text-subtle);
+    line-height: 1.5;
+    padding: 4px 8px;
+    border-left: 1px solid var(--border);
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .toc-link.toc-h3 {
+    padding-left: 18px;
+    font-size: 0.625rem;
+  }
+
+  .toc-link:hover {
+    color: var(--text-muted);
+    border-left-color: var(--text-subtle);
+  }
+
+  .toc-link.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+  }
+
+  /* ── Post content ──────────────────────────────────────── */
   .post-container {
+    min-width: 0;
+    flex: 1;
     max-width: var(--max-w);
   }
 
@@ -109,7 +216,7 @@
     color: var(--text-muted);
   }
 
-  /* Prose styles */
+  /* ── Prose ─────────────────────────────────────────────── */
   :global(.prose) {
     font-size: 0.875rem;
     line-height: 1.75;
@@ -127,6 +234,7 @@
     margin: 2em 0 0.6em;
     line-height: 1.3;
     color: var(--text);
+    scroll-margin-top: calc(var(--nav-h) + 16px);
   }
 
   :global(.prose h2) { font-size: 1.2rem; }
@@ -150,13 +258,8 @@
     text-decoration-color: var(--accent-hover);
   }
 
-  :global(.prose strong) {
-    font-weight: 600;
-  }
-
-  :global(.prose em) {
-    font-style: italic;
-  }
+  :global(.prose strong) { font-weight: 600; }
+  :global(.prose em) { font-style: italic; }
 
   :global(.prose ul),
   :global(.prose ol) {
@@ -242,14 +345,23 @@
     vertical-align: top;
   }
 
-  :global(.prose tr:last-child td) {
-    border-bottom: none;
-  }
+  :global(.prose tr:last-child td) { border-bottom: none; }
 
   :global(.prose img) {
     max-width: 100%;
     border-radius: 6px;
     margin: 1.2em 0;
     border: 1px solid var(--border);
+    display: block;
+  }
+
+  /* ── Responsive ────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .toc { display: none; }
+    .post-layout { max-width: 680px; }
+  }
+
+  @media (max-width: 640px) {
+    .post-layout { padding: 0 16px; }
   }
 </style>

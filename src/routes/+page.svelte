@@ -1,32 +1,38 @@
 <script>
+  export let data;
+  $: latestPost = data.latestPost;
+
+  function formatDate(str) {
+    if (!str) return '';
+    const [d, m, y] = str.split('-');
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const mi = parseInt(m, 10) - 1;
+    return `${months[mi] ?? ''} ${y ?? ''}`.trim();
+  }
+
   const companies = [
-    { name: 'Augment Code', url: '#' },
-    { name: 'KREA', url: '#' },
-    { name: 'OpenMind', url: '#' },
-    { name: 'Orchid', url: '#' },
-    { name: 'Zeromatter', url: '#' },
-    { name: 'Lemurian Labs', url: '#' },
-    { name: 'Logical Intelligence', url: '#' },
+    { name: "Distributed Systems", url: "#" },
+    { name: "Concurrency", url: "#" },
+    { name: "Formal Verification", url: "#" },
+    { name: "Model Checking", url: "#" },
+    { name: "PBT", url: "#" },
+    { name: "DST", url: "#" },
   ];
 
   const thesis = [
-    "We back the foundational layers of progress.",
-    "Developer platforms that accelerate creation.",
-    "Robot operating systems that make autonomy real.",
-    "Simulation engines training the next generation of AI.",
-    "Formal verification securing billions in value.",
-    "Foundational systems that quietly compound — built by founders who see elegance in complexity and possibility in constraints.",
+    "I'm a software engineer focused on distributed systems.",
+    "I'm interested in building and understanding robust storage and query layers that form the backbone of modern data infrastructure.",
   ];
 </script>
 
 <svelte:head>
-  <title>Escafandra</title>
+  <title>fernando martínez</title>
 </svelte:head>
 
 <div class="home">
   <section class="hero">
     <div class="hero-label">Research & Development</div>
-    <h1>Escafandra</h1>
+    <h1>Fernandon Martínez</h1>
     <div class="thesis">
       {#each thesis as line, i}
         <p class:highlight={i === 0}>{line}</p>
@@ -35,50 +41,43 @@
     <div class="companies">
       {#each companies as co, i}
         <a href={co.url} class="company-tag">
-          <span class="co-num">{String(i + 1).padStart(2, '0')}</span>{co.name}
+          <span class="co-num">{String(i + 1).padStart(2, "0")}</span>{co.name}
         </a>
       {/each}
-      <a href="#" class="company-tag all">All companies</a>
+      <a href="#" class="company-tag all">All areas</a>
     </div>
   </section>
 
   <section class="section">
     <div class="section-label">01 — About</div>
     <div class="section-content">
-      <h2>Who we are</h2>
+      <h2>Who am I</h2>
       <div class="about-body">
         <p>
-          Escafandra is a research and development group. We aim to create large-scale distributed systems, compilers, and design programming languages and kernels.
-        </p>
-        <p>
-          We're operators first. Our team has built distributed systems at scale, shipped compilers, designed programming languages, and written kernels. We don't just fund builders — we are them.
+          I'm Fernando, a multidisciplinary software engineer based in Chile. I
+          focus on distributed systems. Now, i'm focusing on formal verification of distributed systems, and coalgebraic and bisimulation modeling.
         </p>
       </div>
-      <a href="/about" class="section-cta">Interested in joining the team? →</a>
+      <a href="/about" class="section-cta">More →</a>
     </div>
   </section>
 
   <section class="section">
-    <div class="section-label">02 — Research</div>
-    <div class="section-content">
-      <h2>Research Residency</h2>
-      <p class="residency-desc">Where we let researchers loose on ideas too weird for a roadmap.</p>
-      <a href="/blog" class="section-cta">From the Lab →</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-label">03 — Writing</div>
+    <div class="section-label">02 — Lab</div>
     <div class="section-content">
       <h2>Latest from the Lab</h2>
       <div class="posts-preview">
-        <a href="/blog/kernel-bugs" class="post-row">
-          <div class="post-row-left">
-            <span class="post-row-tag">research</span>
-            <span class="post-row-title">Kernel bugs hide for 2 years on average. Some hide for 20.</span>
-          </div>
-          <span class="post-row-date">Mar 2026</span>
-        </a>
+        {#if latestPost}
+          <a href="/blog/{latestPost.slug}" class="post-row">
+            <div class="post-row-left">
+              <span class="post-row-tag">{latestPost.tag}</span>
+              <span class="post-row-title">{latestPost.title}</span>
+            </div>
+            <span class="post-row-date">{formatDate(latestPost.date)}</span>
+          </a>
+        {:else}
+          <p class="post-row-title" style="color: var(--text-muted)">No posts yet.</p>
+        {/if}
       </div>
       <a href="/blog" class="section-cta">All posts →</a>
     </div>

@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>About — Escafandra</title>
+  <title>About</title>
 </svelte:head>
 
 <div class="about">
