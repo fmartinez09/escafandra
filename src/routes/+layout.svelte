@@ -3,42 +3,6 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
-  // ── Typing animation ──────────────────────────────────
-  const subtitles = [
-    "Foundational systems.",
-    "Bisimulation.",
-    "Formal verification.",
-  ];
-
-  let displayed = '';
-  let subtitleIndex = 0;
-  let charIndex = 0;
-  let cursorVisible = true;
-
-  function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-  }
-
-  async function typeLoop() {
-    while (true) {
-      const target = subtitles[subtitleIndex];
-      while (charIndex < target.length) {
-        charIndex++;
-        displayed = target.slice(0, charIndex);
-        await sleep(38 + Math.random() * 25);
-      }
-      await sleep(2800);
-      while (charIndex > 0) {
-        charIndex--;
-        displayed = target.slice(0, charIndex);
-        await sleep(18 + Math.random() * 12);
-      }
-      await sleep(400);
-      subtitleIndex = (subtitleIndex + 1) % subtitles.length;
-    }
-  }
-
-  // ── Theme toggle ──────────────────────────────────────
   let isDark = true;
 
   function toggleTheme() {
@@ -49,18 +13,11 @@
   }
 
   onMount(() => {
-    // Restore saved theme
     const saved = localStorage.getItem('theme');
     if (saved === 'light') {
       isDark = false;
       document.documentElement.setAttribute('data-theme', 'light');
     }
-
-    typeLoop();
-    const interval = setInterval(() => {
-      cursorVisible = !cursorVisible;
-    }, 530);
-    return () => clearInterval(interval);
   });
 
   $: isHome = $page.url.pathname === '/';
@@ -69,16 +26,11 @@
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-brand">
-      <a href="/" class="nav-logo"></a>
-      <div class="nav-subtitle">
-        <span>{displayed}</span><span class="cursor" class:visible={cursorVisible}>_</span>
-      </div>
-    </div>
+    <a href="/" class="nav-logo">fm</a>
     <div class="nav-right">
       <div class="nav-links">
         <a href="/" class:active={isHome}>Home</a>
-        <a href="/blog" class:active={isBlog}>Lab</a>
+        <a href="/blog" class:active={isBlog}>Blog</a>
       </div>
       <button class="theme-toggle" on:click={toggleTheme} aria-label="Toggle theme">
         {#if isDark}
@@ -111,8 +63,7 @@
 
 <footer>
   <div class="footer-inner">
-    <span>© 2026 Temuco, Chile</span>
-    <span>Made with Claude.</span>
+    <span>© 2026 Fernando Martínez</span>
   </div>
 </footer>
 
@@ -127,7 +78,7 @@
   }
 
   .nav-inner {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 0 20px;
     height: var(--nav-h);
@@ -145,13 +96,14 @@
   }
 
   .nav-logo {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
     font-weight: 500;
     color: var(--text);
     letter-spacing: -0.01em;
-    line-height: 1.2;
+    line-height: 1;
     transition: color 0.15s;
+    font-style: italic;
   }
 
   .nav-logo:hover {
@@ -179,6 +131,9 @@
     opacity: 1;
   }
 
+  .nav-subtitle,
+  .cursor { display: none; }
+
   .nav-right {
     display: flex;
     align-items: center;
@@ -192,18 +147,21 @@
   }
 
   .nav-links a {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-family: var(--font-body);
     color: var(--text-subtle);
     transition: color 0.15s;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
   }
 
-  .nav-links a:hover,
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
   .nav-links a.active {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .theme-toggle {
@@ -231,16 +189,14 @@
   }
 
   footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 100;
+    margin-top: auto;
     background: var(--bg);
     border-top: 1px solid var(--border);
     transition: background 0.2s, border-color 0.2s;
   }
 
   .footer-inner {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 0 20px;
     height: var(--nav-h);
@@ -248,8 +204,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    font-size: 0.6875rem;
-    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-family: var(--font-body);
     color: var(--text-subtle);
   }
 

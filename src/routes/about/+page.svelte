@@ -16,19 +16,20 @@
   }
   .about-label {
     font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    color: var(--accent);
+    font-size: 0.625rem;
+    color: var(--text-subtle);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   h1 {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 500;
     letter-spacing: -0.02em;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    line-height: 1.1;
   }
-  p { color: var(--text-muted); font-size: 0.8125rem; }
+  p { color: var(--text-muted); font-size: 0.875rem; }
 </style>

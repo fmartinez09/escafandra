@@ -175,25 +175,25 @@
 
   .post-tag {
     display: inline-block;
-    font-size: 0.5625rem;
+    font-size: 0.625rem;
     font-family: var(--font-mono);
-    color: var(--green);
-    background: var(--green-muted);
-    padding: 1px 5px;
+    color: var(--text-muted);
+    background: var(--bg-elevated);
+    padding: 2px 6px;
     border-radius: 3px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
   h1 {
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 4vw, 2.125rem);
-    font-weight: 600;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 1.2;
+    line-height: 1.15;
     color: var(--text);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .post-lead {
@@ -229,17 +229,17 @@
   :global(.prose h3),
   :global(.prose h4) {
     font-family: var(--font-heading);
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
     margin: 2em 0 0.6em;
     line-height: 1.3;
     color: var(--text);
     scroll-margin-top: calc(var(--nav-h) + 16px);
   }
 
-  :global(.prose h2) { font-size: 1.2rem; }
-  :global(.prose h3) { font-size: 1.05rem; }
-  :global(.prose h4) { font-size: 0.925rem; color: var(--text-muted); }
+  :global(.prose h2) { font-size: 1.35rem; }
+  :global(.prose h3) { font-size: 1.125rem; }
+  :global(.prose h4) { font-size: 1rem; color: var(--text-muted); }
 
   :global(.prose p) {
     margin: 0.9em 0;
@@ -250,7 +250,7 @@
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
-    text-decoration-color: rgba(176, 112, 56, 0.25);
+    text-decoration-color: rgba(230, 73, 128, 0.3);
   }
 
   :global(.prose a:hover) {
