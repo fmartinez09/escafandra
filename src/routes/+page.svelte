@@ -1,4 +1,6 @@
 <script>
+  import InteractiveNetwork from '$lib/components/InteractiveNetwork.svelte';
+
   export let data;
   $: latestPost = data.latestPost;
 
@@ -76,6 +78,16 @@
         {/if}
       </div>
       <a href="/blog" class="section-cta">All posts →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">03 — Network</div>
+    <div class="section-content">
+      <h2>Interactive System Graph</h2>
+    </div>
+    <div class="section-full-content">
+      <InteractiveNetwork />
     </div>
   </section>
 </div>
@@ -270,5 +282,11 @@
       grid-template-columns: 1fr;
       gap: 8px;
     }
+  }
+
+  .section-full-content {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 16px;
   }
 </style>
