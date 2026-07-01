@@ -83,11 +83,11 @@
 
 <style>
   .post-layout {
-    max-width: 1080px;
+    max-width: 1320px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    gap: 48px;
+    gap: 96px;
     align-items: flex-start;
   }
 
@@ -99,7 +99,7 @@
     top: calc(var(--nav-h) + 28px);
     max-height: calc(100vh - var(--nav-h) - 56px);
     overflow-y: auto;
-    padding-top: 68px; /* aligns with back-link */
+    padding-top: 64px;
   }
 
   .toc-label {
@@ -150,7 +150,7 @@
   .post-container {
     min-width: 0;
     flex: 1;
-    max-width: var(--max-w);
+    max-width: 612px;
   }
 
   .back-link {
@@ -188,7 +188,7 @@
 
   h1 {
     font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-size: 1.85rem;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.15;
@@ -218,8 +218,9 @@
 
   /* ── Prose ─────────────────────────────────────────────── */
   :global(.prose) {
-    font-size: 0.875rem;
-    line-height: 1.75;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.9375rem;
+    line-height: 1.42;
     color: var(--text);
     padding-bottom: 64px;
   }
@@ -231,15 +232,15 @@
     font-family: var(--font-heading);
     font-weight: 500;
     letter-spacing: -0.01em;
-    margin: 2em 0 0.6em;
-    line-height: 1.3;
+    margin: 1.7em 0 0.55em;
+    line-height: 1.22;
     color: var(--text);
     scroll-margin-top: calc(var(--nav-h) + 16px);
   }
 
-  :global(.prose h2) { font-size: 1.35rem; }
-  :global(.prose h3) { font-size: 1.125rem; }
-  :global(.prose h4) { font-size: 1rem; color: var(--text-muted); }
+  :global(.prose h2) { font-size: 1.2rem; }
+  :global(.prose h3) { font-size: 1rem; }
+  :global(.prose h4) { font-size: 0.9375rem; color: var(--text-muted); }
 
   :global(.prose p) {
     margin: 0.9em 0;
@@ -264,7 +265,7 @@
   :global(.prose ul),
   :global(.prose ol) {
     padding-left: 1.4em;
-    margin: 0.8em 0;
+    margin: 0.75em 0;
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -272,7 +273,7 @@
 
   :global(.prose li) {
     color: var(--text);
-    line-height: 1.65;
+    line-height: 1.45;
   }
 
   :global(.prose blockquote) {
@@ -291,7 +292,7 @@
 
   :global(.prose code:not(pre code)) {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     background: var(--bg-elevated);
     border: 1px solid var(--border);
     padding: 1px 5px;
@@ -301,21 +302,25 @@
 
   :global(.prose pre) {
     background: var(--code-bg);
-    border-radius: 6px;
-    padding: 16px 20px;
+    border-radius: 0;
+    padding: 10px 14px;
     overflow-x: auto;
-    margin: 1.2em 0;
+    margin: 1em 0;
     border: 1px solid var(--border);
+    max-width: 100%;
   }
 
   :global(.prose pre code) {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.625rem;
     color: var(--code-text);
     background: none;
     border: none;
     padding: 0;
-    line-height: 1.65;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 2;
   }
 
   :global(.prose table) {
@@ -349,7 +354,7 @@
 
   :global(.prose img) {
     max-width: 100%;
-    border-radius: 6px;
+    border-radius: 0;
     margin: 1.2em 0;
     border: 1px solid var(--border);
     display: block;
@@ -358,7 +363,7 @@
   /* ── Responsive ────────────────────────────────────────── */
   @media (max-width: 900px) {
     .toc { display: none; }
-    .post-layout { max-width: 680px; }
+    .post-layout { max-width: 652px; }
   }
 
   @media (max-width: 640px) {

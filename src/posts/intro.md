@@ -7,6 +7,10 @@ cover: "/images/neuron.avif"
 excerpt: "The foundation of distributed systems"
 ---
 
+<script>
+  import InteractiveChart from '$lib/components/InteractiveChart.svelte';
+</script>
+
 Currently, we can run **FoundationDB** from the official Docker mirror published by CI: https://hub.docker.com/r/foundationdb/foundationdb
 
 (There’s a lot of other interesting stuff there, too.)
@@ -112,9 +116,7 @@ The beauty lies in the fact that from here, you can choose *what layer to build 
 ---
 
 ## Comparison Matrix
-
-(placeholder for blog table or chart) [https://en.wikipedia.org/wiki/Ordered_key–value_store](https://en.wikipedia.org/wiki/Ordered_key%E2%80%93value_store)
-
+ https://en.wikipedia.org/wiki/Ordered_key–value_store
 ---
 
 ### Pure OKVS (LMDB, RocksDB, LevelDB, Kyoto, BerkeleyDB, WiredTiger, etc.)

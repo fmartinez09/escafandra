@@ -2,7 +2,7 @@
 :root {
   --bg: #0a0a0a;
   --bg-surface: #111111;
-  --bg-elevated: #181818;
+  --bg-elevated: #161616;
   --text: #ededed;
   --text-muted: #a0a0a0;
   --text-subtle: #6a6a6a;
@@ -12,26 +12,46 @@
   --accent-muted: rgba(230, 73, 128, 0.10);
   --green: #a0a0a0;
   --green-muted: rgba(160, 160, 160, 0.08);
-  --code-bg: #0d0d0d;
-  --code-text: #c8c8c8;
+  --code-bg: #141414;
+  --code-text: #e2e8f0;
+
+  /* Syntax Highlighting (Dark) */
+  --token-keyword: #f06595;
+  --token-string: #a9e34b;
+  --token-number: #ffd43b;
+  --token-comment: #748ffc;
+  --token-function: #4dabf7;
+  --token-builtin: #3bc9db;
+  --token-punctuation: #868e96;
+  --token-property: #dee2e6;
 }
 
 /* ── Light theme ──────────────────────────────────────── */
 html[data-theme="light"] {
   --bg: #ffffff;
   --bg-surface: #fafafa;
-  --bg-elevated: #f4f4f4;
-  --text: #1a1a1a;
-  --text-muted: #5a5a5a;
-  --text-subtle: #9a9a9a;
-  --border: #e8e8e8;
+  --bg-elevated: #f1f3f5;
+  --text: #212529;
+  --text-muted: #495057;
+  --text-subtle: #868e96;
+  --border: #e9ecef;
   --accent: #d6336c;
   --accent-hover: #e64980;
   --accent-muted: rgba(214, 51, 108, 0.08);
-  --green: #5a5a5a;
-  --green-muted: rgba(90, 90, 90, 0.06);
-  --code-bg: #1a1a1a;
-  --code-text: #d0d0d0;
+  --green: #495057;
+  --green-muted: rgba(73, 80, 87, 0.06);
+  --code-bg: #f8f9fa;
+  --code-text: #2b303a;
+
+  /* Syntax Highlighting (Light) */
+  --token-keyword: #c2255c;
+  --token-string: #2b8a3e;
+  --token-number: #d9480f;
+  --token-comment: #868e96;
+  --token-function: #1971c2;
+  --token-builtin: #0b7285;
+  --token-punctuation: #495057;
+  --token-property: #343a40;
 }
 
 /* ── Fonts & layout constants ─────────────────────────── */
@@ -39,7 +59,7 @@ html[data-theme="light"] {
   --font-body: 'Inter', sans-serif;
   --font-heading: 'Newsreader', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --max-w: 720px;
+  --max-w: 760px;
   --nav-h: 48px;
 }
 
@@ -58,8 +78,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.875rem;
-  line-height: 1.7;
+  font-size: 0.9375rem;
+  line-height: 1.75;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -78,43 +98,43 @@ a:hover {
 /* ── Syntax highlighting ──────────────────────────────── */
 .token.keyword,
 .token.operator,
-.token.selector      { color: #e64980; }
+.token.selector      { color: var(--token-keyword); }
 
 .token.string,
 .token.char,
 .token.url,
-.token.regex         { color: #94d82d; }
+.token.regex         { color: var(--token-string); }
 
 .token.number,
-.token.boolean       { color: #fcc419; }
+.token.boolean       { color: var(--token-number); }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
-.token.cdata         { color: #6a6a6a; font-style: italic; }
+.token.cdata         { color: var(--token-comment); font-style: italic; }
 
 .token.function,
-.token.class-name    { color: #74c0fc; }
+.token.class-name    { color: var(--token-function); }
 
 .token.builtin,
 .token.constant,
-.token.symbol        { color: #63e6be; }
+.token.symbol        { color: var(--token-builtin); }
 
-.token.tag           { color: #e64980; }
-.token.attr-name     { color: #63e6be; }
-.token.attr-value    { color: #94d82d; }
+.token.tag           { color: var(--token-keyword); }
+.token.attr-name     { color: var(--token-builtin); }
+.token.attr-value    { color: var(--token-string); }
 
 .token.property,
-.token.variable      { color: #c8c8c8; }
+.token.variable      { color: var(--token-property); }
 
-.token.punctuation   { color: #6a6a6a; }
+.token.punctuation   { color: var(--token-punctuation); }
 
 .token.important,
 .token.bold          { font-weight: 600; }
 .token.italic        { font-style: italic; }
 
 .token.deleted       { color: #fa5252; background: rgba(250, 82, 82, 0.06); }
-.token.inserted      { color: #94d82d; background: rgba(148, 216, 45, 0.06); }
+.token.inserted      { color: #40c057; background: rgba(64, 192, 87, 0.06); }
 
 /* ── Scrollbar ────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
