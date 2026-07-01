@@ -1,32 +1,55 @@
 <script>
-  export let data;
-  $: latestPost = data.latestPost;
+  import { locale, t } from '../lib/stores/locale.js';
 
-  function formatDate(str) {
+  export let data;
+  $: posts = data.posts || [];
+
+  $: latestPost = (() => {
+    const lang = $locale;
+    const seen = new Set();
+    const filtered = [];
+    
+    for (const post of posts) {
+      const isSpanish = post.slug.endsWith('.es');
+      const baseSlug = isSpanish ? post.slug.slice(0, -3) : post.slug;
+      
+      if (seen.has(baseSlug)) continue;
+      
+      if (lang === 'es') {
+        const spanishVersion = posts.find(p => p.slug === `${baseSlug}.es`);
+        if (spanishVersion) {
+          filtered.push(spanishVersion);
+          seen.add(baseSlug);
+        } else {
+          filtered.push(post);
+          seen.add(baseSlug);
+        }
+      } else {
+        if (!isSpanish) {
+          filtered.push(post);
+          seen.add(baseSlug);
+        }
+      }
+    }
+    return filtered[0] || null;
+  })();
+
+  function formatDate(str, currentLocale) {
     if (!str) return '';
     const [d, m, y] = str.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const mi = parseInt(m, 10) - 1;
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthsEs = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const months = currentLocale === 'es' ? monthsEs : monthsEn;
     return `${months[mi] ?? ''} ${y ?? ''}`.trim();
   }
 
-  const companies = [
-    { name: "Distributed Systems"},
-    { name: "Concurrency"},
-    { name: "Formal Verification"},
-    { name: "Model Checking"},
-    { name: "PBT"},
-    { name: "DST"},
-  ];
-
-  const thesis = [
-    "I'm a software engineer focused on distributed systems.",
-    "Interested in building and understanding robust storage and query layers that form the backbone of modern data infrastructure.",
-  ];
+  $: companies = $t('home.companies').map(name => ({ name }));
+  $: thesis = $t('home.thesis');
 </script>
 
 <svelte:head>
-  <title>fernando martínez</title>
+  <title>{$t('home.title')}</title>
 </svelte:head>
 
 <div class="home">
@@ -45,13 +68,12 @@
   </section>
 
   <section class="section">
-    <div class="section-label">01 — About</div>
+    <div class="section-label">{$t('home.aboutLabel')}</div>
     <div class="section-content">
-      <h2>Who am I</h2>
+      <h2>{$t('home.aboutTitle')}</h2>
       <div class="about-body">
         <p>
-          I'm Fernando, a multidisciplinary software engineer based in Chile. I
-          focus on distributed systems. Now, i'm focusing on formal verification of distributed systems, and coalgebraic and bisimulation modeling.
+          {$t('home.aboutBody')}
         </p>
       </div>
       <!-- <a href="/about" class="section-cta">More →</a> -->
@@ -59,9 +81,9 @@
   </section>
 
   <section class="section">
-    <div class="section-label">02 — Blog</div>
+    <div class="section-label">{$t('home.blogLabel')}</div>
     <div class="section-content">
-      <h2>Latest from the Blog</h2>
+      <h2>{$t('home.blogTitle')}</h2>
       <div class="posts-preview">
         {#if latestPost}
           <a href="/blog/{latestPost.slug}" class="post-row">
@@ -69,13 +91,13 @@
               <span class="post-row-tag">{latestPost.tag}</span>
               <span class="post-row-title">{latestPost.title}</span>
             </div>
-            <span class="post-row-date">{formatDate(latestPost.date)}</span>
+            <span class="post-row-date">{formatDate(latestPost.date, $locale)}</span>
           </a>
         {:else}
-          <p class="post-row-title" style="color: var(--text-muted)">No posts yet.</p>
+          <p class="post-row-title" style="color: var(--text-muted)">{$t('home.noPosts')}</p>
         {/if}
       </div>
-      <a href="/blog" class="section-cta">All posts →</a>
+      <a href="/blog" class="section-cta">{$t('home.allPosts')}</a>
     </div>
   </section>
 </div>

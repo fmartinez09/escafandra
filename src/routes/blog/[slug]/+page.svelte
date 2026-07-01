@@ -1,10 +1,36 @@
 <script>
   import { onMount } from 'svelte';
+  import { locale, t } from '../../../lib/stores/locale.js';
   export let data;
-  const { content: Content, meta } = data;
+
+  $: Content = data.content;
+  $: meta = data.meta;
+  $: slug = data.slug;
 
   let tocItems = [];
   let activeId = '';
+
+  $: if (slug) {
+    if (slug.endsWith('.es')) {
+      if ($locale !== 'es') {
+        locale.set('es');
+      }
+    } else {
+      if ($locale !== 'en') {
+        locale.set('en');
+      }
+    }
+  }
+
+  function formatDate(str, currentLocale) {
+    if (!str) return '';
+    const [d, m, y] = str.split('-');
+    const mi = parseInt(m, 10) - 1;
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthsEs = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const months = currentLocale === 'es' ? monthsEs : monthsEn;
+    return `${months[mi] ?? ''} ${y ?? ''}`.trim();
+  }
 
   onMount(() => {
     const headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3');
@@ -34,13 +60,13 @@
 </script>
 
 <svelte:head>
-  <title>{meta?.title ?? 'Post'} — Fernando Martinez</title>
+  <title>{meta?.title ?? $t('post.titleFallback')} — Fernando Martínez</title>
 </svelte:head>
 
 <div class="post-layout">
   {#if tocItems.length > 0}
     <aside class="toc">
-      <p class="toc-label">Contents</p>
+      <p class="toc-label">{$t('post.contents')}</p>
       <nav class="toc-nav">
         {#each tocItems as item}
           <a
@@ -55,7 +81,7 @@
   {/if}
 
   <div class="post-container">
-    <a href="/blog" class="back-link">← Back to all posts</a>
+    <a href="/blog" class="back-link">{$t('post.back')}</a>
 
     <header class="post-header">
       {#if meta?.tag}
@@ -70,7 +96,7 @@
           <span class="author">{meta.author}</span>
         {/if}
         {#if meta?.date}
-          <span class="date">{meta.date}</span>
+          <span class="date">{formatDate(meta.date, $locale)}</span>
         {/if}
       </div>
     </header>

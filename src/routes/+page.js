@@ -22,5 +22,5 @@ export async function load() {
 
   posts.sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date));
 
-  return { latestPost: posts[0] ?? null };
+  return { posts };
 }

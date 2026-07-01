@@ -1,24 +1,66 @@
 <script>
+  import { locale, t } from '../../lib/stores/locale.js';
   export let data;
+  $: posts = data.posts || [];
+
+  $: displayedPosts = (() => {
+    const lang = $locale;
+    const seen = new Set();
+    const filtered = [];
+    
+    for (const post of posts) {
+      const isSpanish = post.slug.endsWith('.es');
+      const baseSlug = isSpanish ? post.slug.slice(0, -3) : post.slug;
+      
+      if (seen.has(baseSlug)) continue;
+      
+      if (lang === 'es') {
+        const spanishVersion = posts.find(p => p.slug === `${baseSlug}.es`);
+        if (spanishVersion) {
+          filtered.push(spanishVersion);
+          seen.add(baseSlug);
+        } else {
+          filtered.push(post);
+          seen.add(baseSlug);
+        }
+      } else {
+        if (!isSpanish) {
+          filtered.push(post);
+          seen.add(baseSlug);
+        }
+      }
+    }
+    return filtered;
+  })();
+
+  function formatDate(str, currentLocale) {
+    if (!str) return '';
+    const [d, m, y] = str.split('-');
+    const mi = parseInt(m, 10) - 1;
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthsEs = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const months = currentLocale === 'es' ? monthsEs : monthsEn;
+    return `${months[mi] ?? ''} ${y ?? ''}`.trim();
+  }
 </script>
 
 <svelte:head>
-  <title>Blog</title>
+  <title>{$t('blog.title')}</title>
 </svelte:head>
 
 <div class="blog-index">
   <header class="blog-header">
-    <span class="blog-label">Blog</span>
-    <h1>Writing</h1>
-    <p class="blog-desc">Research, analysis, and notes.</p>
+    <span class="blog-label">{$t('blog.label')}</span>
+    <h1>{$t('blog.heading')}</h1>
+    <p class="blog-desc">{$t('blog.desc')}</p>
   </header>
 
   <div class="posts-list">
-    {#each data.posts as post}
+    {#each displayedPosts as post}
       <a href="/blog/{post.slug}" class="post-item">
         <div class="post-meta">
           <span class="post-tag">{post.tag ?? 'research'}</span>
-          <span class="post-date">{post.date}</span>
+          <span class="post-date">{formatDate(post.date, $locale)}</span>
         </div>
         <h2 class="post-title">{post.title}</h2>
         {#if post.summary}
@@ -26,7 +68,7 @@
         {/if}
       </a>
     {:else}
-      <p class="empty">No posts yet.</p>
+      <p class="empty">{$t('blog.noPosts')}</p>
     {/each}
   </div>
 </div>

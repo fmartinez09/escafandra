@@ -2,6 +2,8 @@
   import '../app.css';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { locale, t } from '../lib/stores/locale.js';
+  import { goto } from '$app/navigation';
 
   let isDark = true;
 
@@ -10,6 +12,29 @@
     const theme = isDark ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+  }
+
+  function toggleLocale() {
+    const nextLocale = $locale === 'en' ? 'es' : 'en';
+    locale.set(nextLocale);
+
+    // Dynamic redirect if we are on a blog post page
+    const path = $page.url.pathname;
+    if (path.startsWith('/blog/')) {
+      const slug = path.split('/').pop();
+      if (slug && slug !== 'blog') {
+        if (nextLocale === 'es') {
+          if (!slug.endsWith('.es')) {
+            goto(`/blog/${slug}.es`);
+          }
+        } else {
+          if (slug.endsWith('.es')) {
+            const cleanSlug = slug.substring(0, slug.length - 3);
+            goto(`/blog/${cleanSlug}`);
+          }
+        }
+      }
+    }
   }
 
   onMount(() => {
@@ -29,9 +54,12 @@
     <a href="/" class="nav-logo">fm</a>
     <div class="nav-right">
       <div class="nav-links">
-        <a href="/" class:active={isHome}>Home</a>
-        <a href="/blog" class:active={isBlog}>Blog</a>
+        <a href="/" class:active={isHome}>{$t('nav.home')}</a>
+        <a href="/blog" class:active={isBlog}>{$t('nav.blog')}</a>
       </div>
+      <button class="lang-toggle" on:click={toggleLocale} aria-label="Toggle language">
+        {$locale === 'en' ? 'ES' : 'EN'}
+      </button>
       <button class="theme-toggle" on:click={toggleTheme} aria-label="Toggle theme">
         {#if isDark}
           <!-- Sun icon -->
@@ -63,7 +91,7 @@
 
 <footer>
   <div class="footer-inner">
-    <span>© 2026 Fernando Martínez</span>
+    <span>{$t('footer.copyright')}</span>
   </div>
 </footer>
 
@@ -162,6 +190,28 @@
 
   .nav-links a.active {
     color: var(--text);
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-subtle);
+    cursor: pointer;
+    padding: 3px 6px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    transition: color 0.15s, border-color 0.15s;
+    line-height: 1;
+  }
+
+  .lang-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
   }
 
   .theme-toggle {
