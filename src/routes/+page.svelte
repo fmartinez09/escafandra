@@ -81,15 +81,7 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-label">03 — Network</div>
-    <div class="section-content">
-      <h2>Interactive System Graph</h2>
-    </div>
-    <div class="section-full-content">
-      <InteractiveNetwork />
-    </div>
-  </section>
+  <InteractiveNetwork />
 </div>
 
 <style>
@@ -284,9 +276,4 @@
     }
   }
 
-  .section-full-content {
-    grid-column: 1 / -1;
-    width: 100%;
-    margin-top: 16px;
-  }
 </style>

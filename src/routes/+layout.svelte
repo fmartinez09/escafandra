@@ -22,6 +22,8 @@
 
   $: isHome = $page.url.pathname === '/';
   $: isBlog = $page.url.pathname.startsWith('/blog');
+  $: isResearch = $page.url.pathname.startsWith('/research');
+  $: isProjects = $page.url.pathname.startsWith('/projects');
 </script>
 
 <nav>
@@ -31,6 +33,8 @@
       <div class="nav-links">
         <a href="/" class:active={isHome}>Home</a>
         <a href="/blog" class:active={isBlog}>Blog</a>
+        <a href="/research" class:active={isResearch}>Research</a>
+        <a href="/projects" class:active={isProjects}>Projects</a>
       </div>
       <button class="theme-toggle" on:click={toggleTheme} aria-label="Toggle theme">
         {#if isDark}

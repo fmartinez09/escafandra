@@ -3,21 +3,21 @@
 </script>
 
 <svelte:head>
-  <title>Blog</title>
+  <title>Projects</title>
 </svelte:head>
 
 <div class="blog-index">
   <header class="blog-header">
-    <span class="blog-label">Blog</span>
-    <h1>Writing</h1>
-    <p class="blog-desc">Analysis and notes.</p>
+    <span class="blog-label">Projects</span>
+    <h1>Systems Projects</h1>
+    <p class="blog-desc">Showcase of artifacts and tools.</p>
   </header>
 
   <div class="posts-list">
     {#each data.posts as post}
-      <a href="/blog/{post.slug}" class="post-item">
+      <a href="/projects/{post.slug}" class="post-item">
         <div class="post-meta">
-          <span class="post-tag">{post.tag ?? 'research'}</span>
+          <span class="post-tag">{post.tag ?? 'project'}</span>
           <span class="post-date">{post.date}</span>
         </div>
         <h2 class="post-title">{post.title}</h2>
@@ -26,7 +26,7 @@
         {/if}
       </a>
     {:else}
-      <p class="empty">No posts yet.</p>
+      <p class="empty">No projects yet.</p>
     {/each}
   </div>
 </div>
