@@ -21,7 +21,7 @@
   });
 
   $: isHome = $page.url.pathname === '/';
-  $: isBlog = $page.url.pathname.startsWith('/blog');
+  $: isNotes = $page.url.pathname.startsWith('/notes');
   $: isResearch = $page.url.pathname.startsWith('/research');
   $: isProjects = $page.url.pathname.startsWith('/projects');
 </script>
@@ -32,9 +32,9 @@
     <div class="nav-right">
       <div class="nav-links">
         <a href="/" class:active={isHome}>Home</a>
-        <a href="/blog" class:active={isBlog}>Blog</a>
         <a href="/research" class:active={isResearch}>Research</a>
         <a href="/projects" class:active={isProjects}>Projects</a>
+        <a href="/notes" class:active={isNotes}>Notes</a>
       </div>
       <button class="theme-toggle" on:click={toggleTheme} aria-label="Toggle theme">
         {#if isDark}
@@ -67,7 +67,7 @@
 
 <footer>
   <div class="footer-inner">
-    <span>© 2026 Fernando Martínez</span>
+    <span>© 2026</span>
   </div>
 </footer>
 
@@ -225,6 +225,9 @@
 
   @media (max-width: 600px) {
     .nav-subtitle { display: none; }
-    .nav-links { gap: 14px; }
+    .nav-inner { gap: 12px; }
+    .nav-right { gap: 12px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 0.75rem; }
   }
 </style>

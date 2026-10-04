@@ -1,14 +1,12 @@
-export async function load({ params }) {
-  try {
-    const post = await import(`../../../research/${params.slug}.md`);
-    return {
-      content: post.default,
-      meta: post.metadata,
-    };
-  } catch (e) {
-    return {
-      status: 404,
-      error: new Error(`Research article not found: ${params.slug}`),
-    };
-  }
+import { getArticle, getEntries } from '$lib/content.js';
+
+// Empty sections are valid; published entries are still prerendered.
+export const prerender = 'auto';
+
+export function entries() {
+  return getEntries('research').map(({ slug }) => ({ slug }));
+}
+
+export function load({ params }) {
+  return getArticle('research', params.slug);
 }

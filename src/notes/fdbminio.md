@@ -1,7 +1,8 @@
 ---
 title: "FDB + MinIO: Metadata (Java)"
 date: "29-09-2025"
-category: "Engineering"
+tags:
+  - Distributed Systems
 author: "Fernando Martínez"
 cover: "/images/seaweedfs.webp"
 excerpt: "We'll build a small HTTP service that registers and retrieves blob metadata stored in MinIO."

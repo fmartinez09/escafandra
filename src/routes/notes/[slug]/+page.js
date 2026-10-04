@@ -3,9 +3,9 @@ import { getArticle, getEntries } from '$lib/content.js';
 export const prerender = 'auto';
 
 export function entries() {
-  return getEntries('projects').map(({ slug }) => ({ slug }));
+  return getEntries('notes').map(({ slug }) => ({ slug }));
 }
 
 export function load({ params }) {
-  return getArticle('projects', params.slug);
+  return getArticle('notes', params.slug);
 }

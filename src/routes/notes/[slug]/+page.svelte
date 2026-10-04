@@ -4,5 +4,5 @@
 </script>
 
 {#key data.meta}
-  <Article {data} section="projects" />
+  <Article {data} section="notes" />
 {/key}

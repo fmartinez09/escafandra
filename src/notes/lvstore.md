@@ -1,7 +1,8 @@
 ---
 title: "Study Notes: Memtable Design of LSM-Tree and FoundationDB Flow I/O"
 date: "24-11-2025"
-category: "Database"
+tags:
+  - Distributed Systems
 author: "Fernando Martínez"
 cover: "/images/kv-p1.png"
 excerpt: "Building a KV Store with LSM-Tree and comparison with FDB"

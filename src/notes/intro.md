@@ -1,7 +1,8 @@
 ---
 title: "Introduction to FoundationDB"
 date: "20-09-2025"
-category: "Engineering"
+tags:
+  - Distributed Systems
 author: "Fernando Martínez"
 cover: "/images/neuron.avif"
 excerpt: "The foundation of distributed systems"

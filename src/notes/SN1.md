@@ -1,7 +1,8 @@
 ---
 title: "Inside FoundationDB Bulk Load: From System Keys to SST Ingestion in Storage Servers"
 date: "05-12-2025"
-category: "FoundationDB"
+tags:
+  - Distributed Systems
 author: "Fernando Martínez"
 cover: "/images/bulkload-cover.jpg"
 excerpt: "How submitBulkLoadJob Materializes a Bulk Load Job as Metadata in the System Keyspace"

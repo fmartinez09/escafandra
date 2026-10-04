@@ -1,33 +1,7 @@
-// Parses "DD-MM-YYYY" to a sortable timestamp. Returns 0 on invalid input.
-function parseDDMMYYYY(str) {
-  if (!str || typeof str !== 'string') return 0;
-  const parts = str.split('-').map(n => parseInt(n, 10));
-  if (parts.length !== 3 || parts.some(isNaN)) return 0;
-  const [d, m, y] = parts;
-  // Build UTC timestamp; if month is invalid (> 12), Date clamps/overflows,
-  // which is fine for sorting purposes — but warn in console so typos are visible.
-  if (m < 1 || m > 12) console.warn(`[blog] Invalid month in date "${str}"`);
-  return Date.UTC(y, m - 1, d);
-}
+import { redirect } from '@sveltejs/kit';
 
-export async function load() {
-  // Dynamically import all markdown posts
-  const postFiles = import.meta.glob('/src/posts/*.md', { eager: true });
+export const prerender = false;
 
-  const posts = Object.entries(postFiles).map(([path, module]) => {
-    const slug = path.split('/').pop().replace('.md', '');
-    const { metadata } = module;
-    return {
-      slug,
-      title: metadata?.title ?? slug,
-      date: metadata?.date ?? '',
-      summary: metadata?.summary ?? '',
-      tag: metadata?.tag ?? 'research',
-    };
-  });
-
-  // Sort newest first (dates are DD-MM-YYYY strings)
-  posts.sort((a, b) => parseDDMMYYYY(b.date) - parseDDMMYYYY(a.date));
-
-  return { posts };
+export function load({ url }) {
+  redirect(308, `/notes${url.search}`);
 }
